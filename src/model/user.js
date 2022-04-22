@@ -13,34 +13,37 @@ module.exports = class user {
     getSchedules()  {return this.schedules}
     getStatus()     {return this.status}
 
+    getBirthInMS()      {return Number(this.birth)}
+    getSchedulesInMS()  {return Number(this.schedules)}
+
     setName(name){
-        if(!name instanceof String || !name){
+        if(!name instanceof String || !name.trim())
             throw("Name invalid.")
-        }
 
         this.name = name
     }
     setBirth(birth){
         const aux = new Date(birth)
-        if(!aux instanceof Date || isNaN(aux)){
+        if(!aux instanceof Date || isNaN(aux))
             throw("Birth invalid.")
-        }
 
         this.birth = aux
     }
     setSchedules(schedules){
         const aux = new Date(schedules)
-        if(!aux instanceof Date || isNaN(aux)){
+        if(!aux instanceof Date || isNaN(aux))
             throw("Schedules invalid.")
-        }
 
-        this.schedules = new Date(aux.getFullYear(), aux.getMonth(), aux.getDay(), aux.getHours())
+        this.schedules = aux
     }
     setStatus(status){
-        if(typeof status !== "boolean"){
+        if(typeof status !== "boolean")
             throw("Vaccine Status invalid.")
-        }
 
         this.status = status
+    }
+
+    compare(data){
+        return data.name === this.name && data.getBirthInMS() == this.getBirthInMS()
     }
 }
