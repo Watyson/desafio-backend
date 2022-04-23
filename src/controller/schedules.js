@@ -37,4 +37,29 @@ module.exports = controller = {
             }
         }
     },
+    index(request, response){
+        try{
+            let page = Number(request.params.page)
+            let qtd  = Number(request.params.qtd)
+
+            const limit = (page - 1) * qtd + qtd
+            const out   = []
+
+            for(let i = limit - qtd; i < limit && i < database.length; i++)
+                out.push(database[i])
+
+            if(!out.length) throw "No data to show."
+    
+            response.send({out})
+        }
+        catch(error){
+            if(typeof error === "string"){
+                response.status(400).send({message: error})
+            }
+            else{
+                console.log(error)
+                response.status(500).send({message: "Something bad happen."})
+            }
+        }
+    }
 }
