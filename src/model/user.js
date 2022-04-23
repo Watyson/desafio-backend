@@ -1,20 +1,18 @@
-const crypto    = require("crypto")
-
 module.exports = class user {
-    constructor(name, birth, schedules, status) {
+    constructor(name, birth, schedule, status) {
         this.setName(name)
         this.setBirth(birth)
-        this.setSchedules(schedules)
+        this.setSchedule(schedule)
         this.setStatus(status)
     }
 
     getName()       {return this.name}
     getBirth()      {return this.birth}
-    getSchedules()  {return this.schedules}
+    getSchedule()   {return this.schedule}
     getStatus()     {return this.status}
 
     getBirthInMS()      {return Number(this.birth)}
-    getSchedulesInMS()  {return Number(this.schedules)}
+    getScheduleInMS()   {return Number(this.schedule)}
 
     setName(name){
         if(!name instanceof String || !name.trim())
@@ -29,12 +27,12 @@ module.exports = class user {
 
         this.birth = aux
     }
-    setSchedules(schedules){
-        const aux = new Date(schedules)
+    setSchedule(schedule){
+        const aux = new Date(schedule)
         if(!aux instanceof Date || isNaN(aux))
-            throw("Schedules invalid.")
+            throw("Schedule invalid.")
 
-        this.schedules = aux
+        this.schedule = aux
     }
     setStatus(status){
         if(typeof status !== "boolean")
