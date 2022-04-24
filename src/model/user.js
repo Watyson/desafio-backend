@@ -21,8 +21,10 @@ module.exports = class user {
         this.name = name
     }
     setBirth(birth){
+        const currentDate = new Date()
         const aux = new Date(birth)
-        if(!aux instanceof Date || isNaN(aux))
+
+        if(!aux instanceof Date || isNaN(aux) || aux.getTime() >= currentDate.getTime())
             throw("Birth invalid.")
 
         this.birth = aux
