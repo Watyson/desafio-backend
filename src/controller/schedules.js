@@ -3,6 +3,8 @@ const dataTime  = require("../model/dataTime")
 const user      = require("../model/user")
 
 const LIMITSCHEDULED = 2
+const MINHOUR = 7
+const MAXHOUR = 17
 
 module.exports = controller = {
     store(request, response){
@@ -17,9 +19,12 @@ module.exports = controller = {
 
             const numberScheduledUsers  = dataTime.get(Number(newUser.getSchedule()))
             const exist                 = database.findIndex((data) => data.compare(newUser))
+            const ScheduledTime          = newUser.getSchedule().getHours()
 
+            if(ScheduledTime < MINHOUR || ScheduledTime > MAXHOUR)
+                throw `Marcar agendamento apenas das ${MINHOUR}:00 as ${MAXHOUR}:00.`
             if(exist !== -1 && (newUser.getSchedule() >= currentDate || newUser.getStatus()))
-                throw `Usuario ${name} ja foi cadastrado anteriormente`
+                throw `Usuario ${name} ja foi cadastrado anteriormente.`
             if(newUser.getSchedule() < currentDate)
                 throw "Nao se pode cadastrar no passado."
             if(numberScheduledUsers >= LIMITSCHEDULED)
