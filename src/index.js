@@ -10,5 +10,5 @@ app.use(morgan("dev"))
 app.use(router)
 
 app.listen(PORT, () => {
-    console.log(`Server running on PORT ${PORT}.`)
+    console.log(`Servidor rodando na PORTA ${PORT}.`)
 })

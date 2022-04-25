@@ -41,7 +41,7 @@ module.exports = controller = {
             }
             else{
                 console.log(error)
-                response.status(500).send({message: "Something bad happen."})
+                response.status(500).send({message: "Alguma coisa deu errado."})
             }
         }
     },
@@ -57,9 +57,9 @@ module.exports = controller = {
                 out.push(database[i])
 
             if(!out.length)
-                throw "No data to show."
+                throw "Sem dados para mostrar."
     
-            response.send({out})
+            response.send(out)
         }
         catch(error){
             if(typeof error === "string"){
@@ -67,7 +67,7 @@ module.exports = controller = {
             }
             else{
                 console.log(error)
-                response.status(500).send({message: "Something bad happen."})
+                response.status(500).send({message: "Alguma coisa deu errado."})
             }
         }
     },
@@ -80,7 +80,7 @@ module.exports = controller = {
 
             const index = database.findIndex((data) => data.getName() === name && data.getScheduleInMS() === scheduleInMS)
             if(index === -1)
-                throw "User not found."
+                throw "Usuario não encontrado."
 
             database[index].setStatus(true)
 
@@ -92,7 +92,7 @@ module.exports = controller = {
             }
             else{
                 console.log(error)
-                response.status(500).send({message: "Something bad happen."})
+                response.status(500).send({message: "Alguma coisa deu errado."})
             }
         }
     }
