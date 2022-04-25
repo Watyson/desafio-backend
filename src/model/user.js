@@ -6,41 +6,47 @@ module.exports = class user {
         this.setStatus(status)
     }
 
-    getName()       {return this.name}
-    getBirth()      {return this.birth}
-    getSchedule()   {return this.schedule}
-    getStatus()     {return this.status}
+    getName()          {return this.name}
+    getBirth()         {return this.birth}
+    getBirthString()   {return this.birth.getUTCDate()+"/"+this.birth.getUTCMonth()+"/"+this.birth.getUTCFullYear()}
+    getSchedule()      {return this.schedule}
+    getScheduleString(){return this.schedule.getUTCDate()+"/"+this.schedule.getUTCMonth()+"/"+this.schedule.getUTCFullYear()}
+    getStatus()        {return this.status[0] === 'R'}
+    getStatusString()  {return this.status}
 
     getBirthInMS()      {return Number(this.birth)}
     getScheduleInMS()   {return Number(this.schedule)}
 
     setName(name){
         if(!name instanceof String || !name.trim())
-            throw("Name invalid.")
+            throw("Nome invalido.")
 
         this.name = name
     }
     setBirth(birth){
         const currentDate = new Date()
         const aux = new Date(birth)
-
-        if(!aux instanceof Date || isNaN(aux) || aux.getTime() >= currentDate.getTime())
-            throw("Birth invalid.")
+        if(!birth || !aux instanceof Date || isNaN(aux) || aux.getTime() >= currentDate.getTime())
+            throw("Data de aniversario invalida.")
 
         this.birth = aux
     }
     setSchedule(schedule){
+        const currentDate = new Date()
         const aux = new Date(schedule)
-        if(!aux instanceof Date || isNaN(aux))
-            throw("Schedule invalid.")
+        if(!schedule || !aux instanceof Date || isNaN(aux)  || aux.getTime() <= currentDate.getTime())
+            throw("Data do agendamento invalida.")
 
         this.schedule = aux
     }
     setStatus(status){
         if(typeof status !== "boolean")
-            throw("Vaccine Status invalid.")
-
-        this.status = status
+            throw("Estado da vacina invalido.")
+        
+        if(status)
+            this.status = "Realizado"
+        else
+            this.status = "Pendente"
     }
 
     compare(data){
